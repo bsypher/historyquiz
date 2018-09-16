@@ -1,54 +1,104 @@
-const quizContainer = document.getElementById('quiz');
-const resultsContainer = document.getElementById('results');
-const submitButton = document.getElementById('submit');
+(function() {
+  function buildQuiz() {
+    // we'll need a place to store the HTML output
+    const output = [];
 
-function buildQuiz(){}
+    // for each question...
+    myQuestions.forEach((currentQuestion, questionNumber) => {
+      // we'll want to store the list of answer choices
+      const answers = [];
 
-function showResults(){}
+      // and for each available answer...
+      for (letter in currentQuestion.answers) {
+        // ...add an HTML radio button
+        answers.push(
+          `<label>
+            <input type="radio" name="question${questionNumber}" value="${letter}">
+            ${letter} :
+            ${currentQuestion.answers[letter]}
+          </label>`
+        );
+      }
 
-// display quiz right away
-buildQuiz();
+      // add this question and its answers to the output
+      output.push(
+        `<div class="question"> ${currentQuestion.question} </div>
+        <div class="answers"> ${answers.join("")} </div>`
+      );
+    });
 
-// on submit, show results
-submitButton.addEventListener('click', showResults);
-
-const myQuestions = [
-  {
-    question: "What is the capital of Italy",
-    answers: {
-      a: "Rome",
-      b: "Spain",
-      c: "Naples"
-    },
-    correctAnswer: "a"
-  },
-  {
-    question: "What is the capital of Germany?",
-    answers: {
-      a: "Berlin",
-      b: "Oslo",
-      c: "London"
-    },
-    correctAnswer: "a"
-  },
-  {
-    question: "Who founded Turkey",
-    answers: {
-      a: "Mesut Ozil",
-      b: "Mustafa Kemal",
-      c: "Ozguhan Mehmetoglou",
-      d: "John Stamos"
-    },
-    correctAnswer: "b"
+    // finally combine our output list into one string of HTML and put it on the page
+    quizContainer.innerHTML = output.join("");
   }
-  {
-    question: "Who won the Battle of Midway",
-    answers: {
-      a: "Japan",
-      b: "Taiwan",
-      c: "Canada",
-      d: "United States"
-    },
-    correctAnswer: "d"
+
+  function showResults() {
+    // gather answer containers from our quiz
+    const answerContainers = quizContainer.querySelectorAll(".answers");
+
+    // keep track of user's answers
+    let numCorrect = 0;
+
+    // for each question...
+    myQuestions.forEach((currentQuestion, questionNumber) => {
+      // find selected answer
+      const answerContainer = answerContainers[questionNumber];
+      const selector = `input[name=question${questionNumber}]:checked`;
+      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+      // if answer is correct
+      if (userAnswer === currentQuestion.correctAnswer) {
+        // add to the number of correct answers
+        numCorrect++;
+
+        // color the answers green
+        answerContainers[questionNumber].style.color = "lightgreen";
+      } else {
+        // if answer is wrong or blank
+        // color the answers red
+        answerContainers[questionNumber].style.color = "red";
+      }
+    });
+
+    // show number of correct answers out of total
+    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
   }
-];
+
+  const quizContainer = document.getElementById("quiz");
+  const resultsContainer = document.getElementById("results");
+  const submitButton = document.getElementById("submit");
+  const myQuestions = [
+    {
+      question: "Who lost the Battle of the Bulge?",
+      answers: {
+        a: "Spain",
+        b: "Algeria",
+        c: "Germany"
+      },
+      correctAnswer: "b"
+    },
+    {
+      question: "Who won the Battle of Midway?",
+      answers: {
+        a: "Japan",
+        b: "Korea",
+        c: "United States"
+      },
+      correctAnswer: "c"
+    },
+    {
+      question: "What is the capital of Slovakia?",
+      answers: {
+        a: "Mostar",
+        b: "Ufa",
+        c: "Bratislava",
+        d: "Tashkent"
+      },
+      correctAnswer: "c"
+    }
+  ];
+
+  // display quiz right away
+  buildQuiz();
+
+  // on submit, show results
+  submitButton.addEventListener("click", showResults);
