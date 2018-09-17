@@ -101,12 +101,12 @@
   ];
 
   function buildQuiz() {
-    // we'll need a place to store the HTML output
+    
     const output = [];
 
-    // for each question...
+    
     myQuestions.forEach((currentQuestion, questionNumber) => {
-      // we'll want to store the list of answer choices
+      //Store the list of answer choices
       const answers = [];
 
       // and for each available answer...
@@ -121,7 +121,7 @@
         );
       }
 
-      // add this question and its answers to the output
+      // adds a question and its answers to the output
       output.push(
         `<div class="slide">
            <div class="question"> ${currentQuestion.question} </div>
@@ -130,12 +130,12 @@
       );
     });
 
-    // finally combine our output list into one string of HTML and put it on the page
+    //combine  output list into one string of HTML and put it on the page
     quizContainer.innerHTML = output.join("");
   }
 
   function showResults() {
-    // gather answer containers from our quiz
+    // gather answer containers for the quiz
     const answerContainers = quizContainer.querySelectorAll(".answers");
 
     // keep track of user's answers
