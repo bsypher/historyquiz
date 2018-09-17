@@ -1,10 +1,9 @@
-}
-@import url(https://fonts.googleapis.com/css?family=Work+Sans:300,600);
+
 
 body{
     font-size: 20px;
-    font-family: 'Work Sans', sans-serif;
-    color: #333;
+    font-family: Tahoma;
+    color: #432;
   font-weight: 300;
   text-align: center;
   background-color: #f8f6f0;
@@ -14,7 +13,7 @@ h1{
   margin: 0px;
   padding: 10px;
   font-size: 20px;
-  background-color: #444;
+  background-color: #0F141C;
   color: #fff;
 }
 .question{
@@ -31,18 +30,18 @@ h1{
   margin-bottom: 10px;
 }
 button{
-  font-family: 'Work Sans', sans-serif;
+  font-family: Tahoma;
     font-size: 22px;
-    background-color: #279;
+    background-color: #062464;
     color: #fff;
-    border: 0px;
+    border: 4px;
     border-radius: 3px;
     padding: 20px;
     cursor: pointer;
     margin-bottom: 20px;
 }
 button:hover{
-    background-color: #38a;
+    background-color: #0B6406;
 }
 
 
