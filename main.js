@@ -1,3 +1,8 @@
+const previousButton = document.getElementById("previous");
+const nextButton = document.getElementById("next");
+const slides = document.querySelectorAll(".slide");
+let currentSlide = 0;
+
 (function() {
   function buildQuiz() {
     // we'll need a place to store the HTML output
@@ -67,38 +72,31 @@
   const resultsContainer = document.getElementById("results");
   const submitButton = document.getElementById("submit");
   const myQuestions = [
-    {
-      question: "Who lost the Battle of the Bulge?",
-      answers: {
-        a: "Spain",
-        b: "Algeria",
-        c: "Germany"
-      },
-      correctAnswer: "b"
-    },
-    {
-      question: "Who won the Battle of Midway?",
-      answers: {
-        a: "Japan",
-        b: "Korea",
-        c: "United States"
-      },
-      correctAnswer: "c"
-    },
-    {
-      question: "What is the capital of Slovakia?",
-      answers: {
-        a: "Mostar",
-        b: "Ufa",
-        c: "Bratislava",
-        d: "Tashkent"
-      },
-      correctAnswer: "c"
-    }
-  ];
+    
 
   // display quiz right away
   buildQuiz();
 
   // on submit, show results
   submitButton.addEventListener("click", showResults);
+})();
+function showSlide(n) {
+  slides[currentSlide].classList.remove('active-slide');
+  slides[n].classList.add('active-slide');
+  currentSlide = n;
+  if(currentSlide===0){
+    previousButton.style.display = 'none';
+  }
+  else{
+    previousButton.style.display = 'inline-block';
+  }
+  if(currentSlide===slides.length-1){
+    nextButton.style.display = 'none';
+    submitButton.style.display = 'inline-block';
+  }
+  else{
+    nextButton.style.display = 'inline-block';
+    submitButton.style.display = 'none';
+  }
+}
+showSlide(0);
